@@ -8,13 +8,13 @@ const docsRoot = path.resolve(siteRoot, '..');
 const targetRoot = path.resolve(siteRoot, 'content', 'docs');
 const sourceItems = ['meta.json', 'system', 'topics', 'notes', 'references', 'maps'];
 
-await rm(targetRoot, { recursive: true, force: true });
 await mkdir(targetRoot, { recursive: true });
 
 for (const item of sourceItems) {
   const from = path.resolve(docsRoot, item);
   const to = path.resolve(targetRoot, item);
 
+  await rm(to, { recursive: true, force: true });
   await cp(from, to, { recursive: true, force: true });
 }
 

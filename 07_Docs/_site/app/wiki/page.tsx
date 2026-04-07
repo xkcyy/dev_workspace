@@ -6,35 +6,44 @@ import {
   DocsTitle,
 } from 'fumadocs-ui/layouts/docs/page';
 
+const entries = [
+  {
+    label: '系统',
+    title: '开始页',
+    href: '/wiki/system/start-here',
+    copy: '先理解这套 wiki 的结构、写作规则与发布方式，再开始补充内容。',
+  },
+  {
+    label: '主题',
+    title: 'Fumadocs 现代化 Wiki',
+    href: '/wiki/topics/fumadocs-modern-wiki',
+    copy: '查看当前站点为什么采用这套渲染栈，以及它的视觉与工程边界。',
+  },
+  {
+    label: '发布',
+    title: 'GitHub Pages 发布',
+    href: '/wiki/system/github-pages-publishing',
+    copy: '了解这套站点在仓库中的部署方式、路径约束与发布出口。',
+  },
+];
+
 export default function WikiIndexPage() {
   return (
     <DocsPage full>
-      <DocsTitle>Wiki 导航</DocsTitle>
+      <DocsTitle>文档入口</DocsTitle>
       <DocsDescription>
-        这里是文档主区入口。你可以从系统说明开始，或直接进入主题页。
+        从这里进入各个主栏目。整体阅读体验会保持浅色、克制和信息优先，而不是依赖装饰效果。
       </DocsDescription>
       <DocsBody>
         <div className="wiki-grid">
-          <Link
-            href="/wiki/system/start-here"
-            className="wiki-card rounded-3xl border border-white/10 bg-white/4 p-6 transition hover:-translate-y-1 hover:border-cyan-300/30"
-          >
-            <p className="text-xs uppercase tracking-[0.22em] text-white/42">System</p>
-            <h2 className="mt-4 text-xl font-semibold text-white">开始页</h2>
-            <p className="mt-3 text-sm leading-7 text-white/62">
-              了解这套 wiki 的目录结构、写作规则和使用方式。
-            </p>
-          </Link>
-          <Link
-            href="/wiki/topics/fumadocs-modern-wiki"
-            className="wiki-card rounded-3xl border border-white/10 bg-white/4 p-6 transition hover:-translate-y-1 hover:border-violet-300/30"
-          >
-            <p className="text-xs uppercase tracking-[0.22em] text-white/42">Topic</p>
-            <h2 className="mt-4 text-xl font-semibold text-white">Fumadocs 现代化 Wiki</h2>
-            <p className="mt-3 text-sm leading-7 text-white/62">
-              说明当前为什么选择 Fumadocs，以及它如何承载现代化中文文档站。
-            </p>
-          </Link>
+          {entries.map((entry) => (
+            <Link key={entry.title} href={entry.href} className="doc-card surface-card-strong">
+              <p className="muted-kicker">{entry.label}</p>
+              <h2 className="doc-card-title mt-4">{entry.title}</h2>
+              <p className="doc-card-copy mt-3">{entry.copy}</p>
+              <span className="doc-card-link mt-8">打开页面</span>
+            </Link>
+          ))}
         </div>
       </DocsBody>
     </DocsPage>

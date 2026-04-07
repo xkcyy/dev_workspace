@@ -5,7 +5,8 @@ export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
       title: (
-        <span className="text-sm font-semibold tracking-[0.2em] uppercase">
+        <span className="inline-flex items-center gap-2 text-[0.95rem] font-semibold text-slate-950">
+          <span className="size-2.5 rounded-sm bg-slate-950" />
           {appName}
         </span>
       ),
@@ -13,6 +14,9 @@ export function baseOptions(): BaseLayoutProps {
       transparentMode: 'top',
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
+    themeSwitch: {
+      enabled: false,
+    },
     links: [
       {
         text: '首页',
@@ -20,7 +24,7 @@ export function baseOptions(): BaseLayoutProps {
         active: 'url',
       },
       {
-        text: 'Wiki',
+        text: '文档',
         url: '/wiki/',
         active: 'nested-url',
       },

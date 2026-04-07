@@ -2,112 +2,125 @@ import Link from 'next/link';
 
 const sections = [
   {
-    title: '系统',
+    label: '系统',
+    title: '规则、结构与发布',
     href: '/wiki/system/start-here',
-    description: '记录站点规则、写作约定、发布方式和长期维护约束。',
+    description: '用于约束这套 wiki 的目录结构、写作方式与长期维护边界。',
   },
   {
-    title: '主题',
+    label: '主题',
+    title: '稳定知识主题',
     href: '/wiki/topics/fumadocs-modern-wiki',
-    description: '沉淀较稳定的知识主题、框架选择和方法论。',
+    description: '沉淀值得反复引用的主题页、方法论和框架判断。',
   },
   {
-    title: '笔记',
+    label: '笔记',
+    title: '渐进沉淀内容',
     href: '/wiki/system/start-here',
-    description: '适合放暂时未完全抽象、但已值得长期保留的内容。',
+    description: '先记录，再抽象；先形成页面，再决定是否升级为主题知识。',
+  },
+];
+
+const metrics = [
+  {
+    title: '信息架构',
+    copy: '顶层目录直接表达知识结构，不让内容被埋进工程文件树。',
+  },
+  {
+    title: '中文阅读',
+    copy: '字体、行距、边界和留白都按简体中文长文阅读来收敛。',
+  },
+  {
+    title: '静态交付',
+    copy: '继续保留 GitHub Pages 的低维护部署路径，不引入服务端负担。',
   },
 ];
 
 export default function HomePage() {
   return (
     <main className="home-shell">
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-8 md:px-10">
+      <div className="mx-auto flex min-h-screen max-w-[1380px] flex-col px-6 py-7 md:px-10">
         <header className="flex items-center justify-between py-4">
-          <Link href="/" className="text-sm font-semibold tracking-[0.2em] text-white/88 uppercase">
+          <Link href="/" className="inline-flex items-center gap-2 text-[0.95rem] font-semibold text-slate-950">
+            <span className="size-2.5 rounded-sm bg-slate-950" />
             知识花园
           </Link>
-          <nav className="flex items-center gap-3 text-sm text-white/70">
-            <Link href="/wiki/system/start-here" className="rounded-full border border-white/12 px-4 py-2 transition hover:border-cyan-300/40 hover:text-white">
-              进入 Wiki
+          <nav className="flex items-center gap-2 text-sm">
+            <Link href="/wiki" className="secondary-button !min-h-[2.6rem] !px-4">
+              浏览文档
             </Link>
-            <Link href="/wiki/topics/fumadocs-modern-wiki" className="rounded-full border border-white/12 px-4 py-2 transition hover:border-violet-300/40 hover:text-white">
-              查看主题
+            <Link href="/wiki/system/start-here" className="primary-button !min-h-[2.6rem] !px-4">
+              从开始页进入
             </Link>
           </nav>
         </header>
 
-        <section className="grid flex-1 items-center gap-10 py-10 md:grid-cols-[1.3fr_0.9fr] md:py-16">
+        <section className="grid flex-1 items-center gap-12 py-10 md:grid-cols-[1.2fr_0.9fr] md:py-16">
           <div className="relative z-10">
-            <div className="mb-5 inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/8 px-4 py-1.5 text-xs font-medium text-cyan-100">
-              简体中文主站 · Fumadocs · GitHub Pages
-            </div>
-            <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
-              让 wiki 看起来像一套真正的现代产品文档。
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/68 md:text-xl">
-              顶层目录继续保持文档优先，站点渲染层收敛到 <code className="rounded bg-white/10 px-2 py-1 text-base">_site/</code>。
-              视觉上采用更现代的 docs 体系，保留静态部署与全文检索能力。
+            <div className="hero-eyebrow">简体中文主站 · 浅色产品文档风格</div>
+            <h1 className="hero-title mt-6">把个人 wiki 做成一套干净、现代、可长期维护的文档系统。</h1>
+            <p className="hero-lede mt-7">
+              这个站点现在不再依赖深色光效去营造“现代感”，而是回到更接近 Vercel
+              Docs 的浅色产品文档逻辑：边界清楚、排版克制、内容优先、导航稳定。
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link
-                href="/wiki/system/start-here"
-                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-100"
-              >
-                从开始页进入
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/wiki" className="primary-button">
+                打开文档主区
               </Link>
-              <Link
-                href="/wiki/topics/fumadocs-modern-wiki"
-                className="rounded-full border border-white/14 bg-white/4 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/8"
-              >
+              <Link href="/wiki/topics/fumadocs-modern-wiki" className="secondary-button">
                 查看技术栈说明
               </Link>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-6 text-sm text-slate-500">
+              <span>GitHub Pages</span>
+              <span>Fumadocs</span>
+              <span>全文搜索</span>
+              <span>简体中文优先</span>
             </div>
           </div>
 
           <div className="relative z-10">
-            <div className="glass-card rounded-[2rem] p-6 md:p-8">
-              <div className="mb-6 flex items-center justify-between text-sm text-white/55">
-                <span>体验目标</span>
-                <span>现代文档界面</span>
+            <div className="surface-card-strong rounded-[2rem] p-6 md:p-8">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div>
+                  <p className="muted-kicker">Visual Direction</p>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+                    更像现代产品文档，而不是模板站点。
+                  </h2>
+                </div>
               </div>
-              <div className="space-y-4">
-                <div className="rounded-3xl border border-white/8 bg-white/4 p-5">
-                  <p className="text-xs uppercase tracking-[0.22em] text-cyan-200/80">导航</p>
-                  <p className="mt-2 text-lg font-medium text-white">层级清晰、搜索前置、阅读界面克制</p>
-                </div>
-                <div className="rounded-3xl border border-white/8 bg-white/4 p-5">
-                  <p className="text-xs uppercase tracking-[0.22em] text-violet-200/80">排版</p>
-                  <p className="mt-2 text-lg font-medium text-white">中文阅读优先，留白和节奏比装饰更重要</p>
-                </div>
-                <div className="rounded-3xl border border-white/8 bg-white/4 p-5">
-                  <p className="text-xs uppercase tracking-[0.22em] text-emerald-200/80">发布</p>
-                  <p className="mt-2 text-lg font-medium text-white">继续保留 GitHub Pages 静态部署能力</p>
-                </div>
+
+              <div className="metric-grid mt-6">
+                {metrics.map((item) => (
+                  <div key={item.title} className="metric-card surface-card rounded-[1.4rem]">
+                    <p className="muted-kicker">{item.title}</p>
+                    <p className="mt-3 text-[1rem] text-slate-600">{item.copy}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        <section className="relative z-10 pb-18">
-          <div className="mb-6 flex items-end justify-between gap-6">
+        <section className="relative z-10 pb-16">
+          <div className="mb-7 flex items-end justify-between gap-6">
             <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-white/42">栏目</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white md:text-3xl">文档目录仍然在顶层，而不是被埋进代码结构。</h2>
+              <p className="muted-kicker">Sections</p>
+              <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-slate-950">
+                结构继续保持文档优先，视觉则向现代开发者产品文档靠拢。
+              </h2>
             </div>
           </div>
 
           <div className="wiki-grid">
             {sections.map((section) => (
-              <Link
-                key={section.title}
-                href={section.href}
-                className="wiki-card glass-card rounded-[1.6rem] p-6 transition hover:-translate-y-1 hover:border-white/16"
-              >
-                <p className="text-xs uppercase tracking-[0.22em] text-white/42">{section.title}</p>
-                <h3 className="mt-4 text-xl font-semibold text-white">{section.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-white/62">{section.description}</p>
-                <span className="mt-8 inline-flex text-sm font-medium text-cyan-200">打开页面</span>
+              <Link key={section.title} href={section.href} className="doc-card surface-card-strong">
+                <p className="muted-kicker">{section.label}</p>
+                <h3 className="doc-card-title mt-4">{section.title}</h3>
+                <p className="doc-card-copy mt-3">{section.description}</p>
+                <span className="doc-card-link mt-8">进入栏目</span>
               </Link>
             ))}
           </div>

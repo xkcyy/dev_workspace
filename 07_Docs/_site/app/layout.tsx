@@ -15,8 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="min-h-screen antialiased">
         <RootProvider
           theme={{
-            defaultTheme: 'dark',
-            enableSystem: false,
+            enabled: false,
           }}
           i18n={{
             locale: 'cn',
