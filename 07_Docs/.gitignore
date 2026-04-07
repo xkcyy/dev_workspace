@@ -1,3 +1,6 @@
-_site/.astro/
-_site/dist/
+_site/.next/
+_site/.source/
+_site/content/
 _site/node_modules/
+_site/out/
+_site/tsconfig.tsbuildinfo
