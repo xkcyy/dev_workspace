@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import WikiLayout from "../../layouts/WikiLayout.astro";
+import { entrySlug, sortEntries, toTagHref, toWikiHref } from "../../lib/wiki";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("wiki", ({ data }) => !data.draft);
+  const tags = [...new Set(entries.flatMap((entry) => entry.data.tags))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      entries: sortEntries(entries),
+      matchedEntries: sortEntries(entries.filter((entry) => entry.data.tags.includes(tag)))
+    }
+  }));
+}
+
+const { tag, entries, matchedEntries } = Astro.props;
+---
+
+<WikiLayout
+  title={`Tag: ${tag}`}
+  description={`Pages tagged with ${tag}.`}
+  entries={entries}
+>
+  <section class="hero">
+    <p class="eyebrow">Tag</p>
+    <h1>#{tag}</h1>
+    <p class="lede">共 {matchedEntries.length} 个页面。</p>
+  </section>
+
+  <section class="panel">
+    <div class="tag-row">
+      {
+        [...new Set(entries.flatMap((entry) => entry.data.tags))]
+          .sort((left, right) => left.localeCompare(right, "zh-CN"))
+          .map((item) => (
+            <a class:list={["tag-chip", item === tag && "is-active"]} href={toTagHref(item)}>
+              #{item}
+            </a>
+          ))
+      }
+    </div>
+
+    <div class="card-grid">
+      {matchedEntries.map((entry) => (
+        <article class="wiki-card">
+          <h2>
+            <a href={toWikiHref(entrySlug(entry))}>{entry.data.title}</a>
+          </h2>
+          <p>{entry.data.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</WikiLayout>

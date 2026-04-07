@@ -1,0 +1,44 @@
+name: Deploy 07_Docs Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "07_Docs/**"
+      - ".github/workflows/07-docs-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 07-docs-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install, build, and upload
+        uses: withastro/action@v5
+        with:
+          path: 07_Docs/_site
+        env:
+          PUBLIC_DEPLOY_TARGET: github-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

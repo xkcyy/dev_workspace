@@ -1,0 +1,70 @@
+---
+import {
+  entrySlug,
+  groupEntriesBySection,
+  SECTION_LABELS,
+  toWikiHref,
+  withBase
+} from "../lib/wiki";
+import "../styles/global.css";
+
+const {
+  title,
+  description = "",
+  entries = [],
+  currentSlug = ""
+} = Astro.props;
+
+const groupedEntries = groupEntriesBySection(entries);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} | Frontmatter Wiki` : "Frontmatter Wiki"}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header" data-pagefind-ignore>
+      <a class="brand" href={withBase()}>Frontmatter Wiki</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href={withBase()}>Home</a>
+        <a href={withBase("search/")}>Search</a>
+      </nav>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" aria-label="Wiki navigation" data-pagefind-ignore>
+        <p class="sidebar-kicker">Markdown Wiki</p>
+        {
+          groupedEntries.map(([section, sectionEntries]) => (
+            <section class="sidebar-section">
+              <h2>{SECTION_LABELS[section] ?? section}</h2>
+              <ul>
+                {sectionEntries.map((entry) => {
+                  const slug = entrySlug(entry);
+                  const href = toWikiHref(slug);
+                  const isCurrent = slug === currentSlug;
+
+                  return (
+                    <li>
+                      <a href={href} aria-current={isCurrent ? "page" : undefined}>
+                        {entry.data.title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))
+        }
+      </aside>
+
+      <main class="content" data-pagefind-body>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
