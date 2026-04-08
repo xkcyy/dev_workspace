@@ -1,10 +1,4 @@
 import Link from 'next/link';
-import {
-  DocsBody,
-  DocsDescription,
-  DocsPage,
-  DocsTitle,
-} from 'fumadocs-ui/layouts/docs/page';
 
 const quickStart = [
   {
@@ -31,13 +25,13 @@ const categoryCards = [
   {
     label: '系统',
     title: '系统类页面',
-    href: '/wiki/system/start-here/',
+    href: '/wiki/system/',
     copy: '规则、结构、发布与维护方式。',
   },
   {
     label: '主题',
     title: '主题类页面',
-    href: '/wiki/topics/fumadocs-modern-wiki/',
+    href: '/wiki/topics/',
     copy: '长期沉淀的稳定知识主题。',
   },
   {
@@ -62,17 +56,16 @@ const categoryCards = [
 
 export default function WikiIndexPage() {
   return (
-    <DocsPage full>
-      <DocsTitle>文档总览</DocsTitle>
-      <DocsDescription>
-        从这里进入不同栏目。顶栏负责快速分类，当前页负责展示更完整的入口层。
-      </DocsDescription>
-      <DocsBody>
+    <main className="home-shell">
+      <div className="mx-auto flex min-h-screen max-w-[1400px] flex-col px-6 py-8 md:px-10">
         <section className="home-section !pt-0">
           <div className="home-section-head">
             <div>
-              <p className="muted-kicker">Quickstart</p>
-              <h2 className="home-section-title">先从这三个入口读起。</h2>
+              <p className="muted-kicker">Overview</p>
+              <h1 className="home-section-title">文档总览</h1>
+              <p className="hero-lede mt-5">
+                这里是文档系统的总入口。顶栏负责切换独立分区，当前页负责提供更完整的分类导航。
+              </p>
             </div>
           </div>
 
@@ -107,7 +100,7 @@ export default function WikiIndexPage() {
             ))}
           </div>
         </section>
-      </DocsBody>
-    </DocsPage>
+      </div>
+    </main>
   );
 }

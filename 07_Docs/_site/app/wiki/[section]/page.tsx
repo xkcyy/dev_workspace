@@ -9,17 +9,21 @@ import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
+import { getSectionItems } from '@/lib/sections';
 
-type WikiPageProps = {
+type SectionPageProps = {
   params: Promise<{
-    slug: string[];
+    section: string;
   }>;
 };
 
-export default async function Page({ params }: WikiPageProps) {
-  const { slug } = await params;
-  const page = source.getPage(slug);
-  if (!page) notFound();
+export default async function SectionHomePage({ params }: SectionPageProps) {
+  const { section } = await params;
+  const page = source.getPage([section]);
+
+  if (!page) {
+    notFound();
+  }
 
   const MDX = page.data.body;
 
@@ -39,13 +43,18 @@ export default async function Page({ params }: WikiPageProps) {
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return getSectionItems().map((item) => ({
+    section: item.id,
+  }));
 }
 
-export async function generateMetadata({ params }: WikiPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const page = source.getPage(slug);
-  if (!page) notFound();
+export async function generateMetadata({ params }: SectionPageProps): Promise<Metadata> {
+  const { section } = await params;
+  const page = source.getPage([section]);
+
+  if (!page) {
+    notFound();
+  }
 
   return {
     title: page.data.title,

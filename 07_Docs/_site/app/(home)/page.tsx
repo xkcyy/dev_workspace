@@ -25,13 +25,13 @@ const categories = [
   {
     label: '系统',
     title: '规则、结构与发布',
-    href: '/wiki/system/start-here/',
+    href: '/wiki/system/',
     description: '承接站点规则、目录设计和部署约束。',
   },
   {
     label: '主题',
     title: '稳定知识主题',
-    href: '/wiki/topics/fumadocs-modern-wiki/',
+    href: '/wiki/topics/',
     description: '承接较稳定、值得长期维护和引用的知识页。',
   },
   {
@@ -56,8 +56,8 @@ const categories = [
 
 const headerLinks = [
   { text: '文档', href: '/wiki/' },
-  { text: '开始', href: '/wiki/system/start-here/' },
-  { text: '主题', href: '/wiki/topics/fumadocs-modern-wiki/' },
+  { text: '系统', href: '/wiki/system/' },
+  { text: '主题', href: '/wiki/topics/' },
   { text: '笔记', href: '/wiki/notes/' },
   { text: '参考', href: '/wiki/references/' },
   { text: '图谱', href: '/wiki/maps/' },
